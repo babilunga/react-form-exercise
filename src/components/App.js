@@ -1,14 +1,24 @@
 import React from 'react';
 
-// import countries from '../data/countries.js';
-// import GenderRadio from './GenderRadio.js';
-// import Field from './Field.js';
-
 import Basic from './Basic.js';
 import Contacts from './Contacts.js';
+import Avatar from './Avatar.js';
+import Overview from './Overview.js';
+
 import classnames from 'classnames';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/style.css';
+
+const validateEmail = (email) => {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+};
+
+const validateMobile = (email) => {
+  const re = /^(()?\d{3}())?(-|\s)?\d{3}(-|\s)?\d{4}$/;
+  return re.test(String(email).toLowerCase());
+};
 
 export default class App extends React.Component {
   constructor() {
@@ -72,29 +82,49 @@ export default class App extends React.Component {
   errorHandler = () => {
     const errors = {};
 
-    if (!this.state.firstName) {
-      errors.firstName = '*Required';
-    } else if (this.state.firstName.length < 3) {
-      errors.firstName = '*Must be 3 characters or more';
+    // Basic
+    if (this.state.step === 1) {
+      if (!this.state.firstName) {
+        errors.firstName = '*Required';
+      } else if (this.state.firstName.length < 3) {
+        errors.firstName = '*Must be 3 characters or more';
+      }
+
+      if (!this.state.lastName) {
+        errors.lastName = '*Required';
+      } else if (this.state.lastName.length < 3) {
+        errors.lastName = '*Must be 3 characters or more';
+      }
+
+      if (!this.state.password) {
+        errors.password = '*Required';
+      } else if (this.state.password && this.state.password.length < 5) {
+        errors.password = '*Must be 5 characters or more';
+      }
+
+      if (!this.state.gender) {
+        errors.gender = '*Required';
+      }
     }
 
-    if (!this.state.lastName) {
-      errors.lastName = '*Required';
-    } else if (this.state.lastName.length < 3) {
-      errors.lastName = '*Must be 3 characters or more';
+    // Contacts
+    if (this.state.step === 2) {
+      if (!validateEmail(this.state.email)) {
+        errors.email = '*Invalid email address';
+      }
+      if (!validateMobile(this.state.mobile)) {
+        errors.mobile = '*Invalid mobile';
+      }
     }
 
-    if (!this.state.password) {
-      errors.password = '*Required';
-    } else if (this.state.password && this.state.password.length < 5) {
-      errors.password = '*Must be 5 characters or more';
+    // Avatar
+    if (this.state.step === 3) {
+      if (!this.state.avatar) {
+        errors.avatar = '*Required';
+      }
     }
 
-    if (!this.state.gender) {
-      errors.gender = '*Required';
-    }
-
-    return error;
+    return errors;
   };
 
   onChangeInput = (event) => {
@@ -104,22 +134,15 @@ export default class App extends React.Component {
     });
   };
 
-  // onChangeCheckbox = (event) => {
-  //   // console.log(`${event.target.name}: ${event.target.checked}`);
-  //   this.setState({
-  //     [event.target.name]: event.target.checked,
-  //   });
-  // };
-
-  // onChangeAvatar = (event) => {
-  //   const reader = new FileReader();
-  //   reader.onload = (event) => {
-  //     this.setState({
-  //       avatar: event.target.result,
-  //     });
-  //   };
-  //   reader.readAsDataURL(event.target.files[0]);
-  // };
+  onChangeAvatar = (event) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      this.setState({
+        avatar: event.target.result,
+      });
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
 
   // getOptionItems = (items) => {
   //   return items.map((item) => (
@@ -144,14 +167,36 @@ export default class App extends React.Component {
               error={this.state.errors}
               isPassed={this.state.isPassed}
             />
-          ) : (
+          ) : this.state.step === 2 ? (
             <Contacts
               email={this.state.email}
               mobile={this.state.mobile}
               country={this.state.country}
+              city={this.state.city}
+              getOptionItems={this.getOptionItems}
+              onChangeInput={this.onChangeInput}
               error={this.state.errors}
               isPassed={this.state.isPassed}
-              onChange={this.onChangeInput}
+            />
+          ) : this.state.step === 3 ? (
+            <Avatar
+              avatar={this.state.avatar}
+              onChangeAvatar={this.onChangeAvatar}
+              error={this.state.errors}
+              isPassed={this.state.isPassed}
+            />
+          ) : (
+            <Overview
+              firstName={this.state.firstName}
+              lastName={this.state.lastName}
+              password={this.state.password}
+              repeatPassword={this.state.repeatPassword}
+              gender={this.state.gender}
+              email={this.state.email}
+              mobile={this.state.mobile}
+              country={this.state.country}
+              city={this.state.city}
+              avatar={this.state.avatar}
             />
           )}
         </div>
@@ -171,7 +216,9 @@ export default class App extends React.Component {
 
             <button
               type="submit"
-              className="btn btn-outline-primary"
+              className={classnames('btn', 'btn-outline-primary', {
+                disabled: this.state.step === 4,
+              })}
               onClick={this.onForward}
             >
               Вперед

@@ -1,4 +1,4 @@
-export default {
+const cities = {
   1: { country: 1, name: 'Kyiv' },
   2: { country: 1, name: 'Lviv' },
   3: { country: 1, name: 'Odessa' },
@@ -29,3 +29,5 @@ export default {
   24: { country: 5, name: 'Las-Vegas' },
   25: { country: 5, name: 'Miami' },
 };
+
+export default cities;

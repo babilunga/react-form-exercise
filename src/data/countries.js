@@ -1,4 +1,4 @@
-export default [
+const countries = [
   {
     id: 1,
     name: 'Ukraine',
@@ -20,3 +20,5 @@ export default [
     name: 'USA',
   },
 ];
+
+export default countries;
