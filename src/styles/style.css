@@ -1,0 +1,12 @@
+* {
+  /* border: 1px solid; */
+}
+.form-container {
+  width: 460px;
+}
+.invalid-feedback {
+  display: block;
+}
+.border-red {
+  box-shadow: 0 0 0.3rem red;
+}
