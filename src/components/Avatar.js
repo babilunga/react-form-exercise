@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 
 const Avatar = (props) => {
-  const { avatar, onChangeAvatar, error, isPassed } = props;
+  const { onChangeAvatar, error, isPassed } = props;
   return (
     <div
       className={classnames('form-container', 'p-3', {

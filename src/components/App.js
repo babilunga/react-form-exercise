@@ -42,7 +42,7 @@ export default class App extends React.Component {
 
       // Controlls
       errors: {},
-      step: 1,
+      step: 3,
       isPassed: true,
     };
   }
@@ -180,7 +180,6 @@ export default class App extends React.Component {
             />
           ) : this.state.step === 3 ? (
             <Avatar
-              avatar={this.state.avatar}
               onChangeAvatar={this.onChangeAvatar}
               error={this.state.errors}
               isPassed={this.state.isPassed}
@@ -201,11 +200,11 @@ export default class App extends React.Component {
           )}
         </div>
 
-        <div className="row justify-content-between">
+        <div className="row justify-content-between buttons">
           <div className="btn-group">
             <button
               // {this.state.step === 0 ? disabled : null}
-              type="submit"
+              type="submit "
               className={classnames('btn', 'btn-outline-primary', 'me-md-2', {
                 disabled: this.state.step === 1,
               })}
