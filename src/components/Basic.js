@@ -11,7 +11,7 @@ const Basic = (props) => {
 
   return (
     <div
-      className={classnames('form-container', 'p-3', 'mb-3', {
+      className={classnames('form-container', 'w-100', 'p-3', 'mb-3', {
         'border-red': Object.keys(error).length !== 0,
       })}
     >

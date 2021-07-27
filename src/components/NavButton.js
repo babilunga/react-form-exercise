@@ -5,14 +5,9 @@ const NavButton = (props) => {
   return (
     <button
       type="submit"
-      className={classnames(
-        'btn',
-        'btn-outline-primary',
-        { float },
-        {
-          disabled: isDisabled,
-        }
-      )}
+      className={classnames('btn', 'btn-outline-primary', float, {
+        disabled: isDisabled,
+      })}
       onClick={onClick}
     >
       {title}

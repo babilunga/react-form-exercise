@@ -192,11 +192,14 @@ export default class App extends React.Component {
                 title="Назад"
                 isDisabled={this.state.step === 1}
                 onClick={this.onBackward}
+                float="float-start"
               />
+
               <NavButton
                 title="Вперед"
                 isDisabled={this.state.step === 4}
                 onClick={this.onForward}
+                float="float-end"
               />
             </form>
           </div>

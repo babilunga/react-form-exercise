@@ -16,7 +16,7 @@ const Overview = (props) => {
     },
   } = props;
   return (
-    <div className="form-container mb-3">
+    <div className="form-container w-100 mb-3">
       <ul className="list-group list-group-flush mb-3">
         <li className="list-group-item">
           <div className="row">
