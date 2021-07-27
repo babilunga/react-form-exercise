@@ -4,7 +4,7 @@ const Field = (props) => {
   const { id, labelText, type, placeholder, name, value, onChange, error } =
     props;
   return (
-    <div className="form-group mb-3">
+    <div className="mb-3">
       <label htmlFor={id}>{labelText}</label>
       <input
         className="form-control"

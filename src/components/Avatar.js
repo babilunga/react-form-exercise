@@ -1,11 +1,18 @@
 import classnames from 'classnames';
 
 const Avatar = (props) => {
-  const { onChangeAvatar, error, isPassed } = props;
+  const { updateValues, error } = props;
+
+  const onChangeAvatar = (e) => {
+    const reader = new FileReader();
+    reader.onload = (e) => updateValues('avatar', e.target.result);
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
   return (
     <div
-      className={classnames('form-container', 'p-3', {
-        'border-red': !isPassed,
+      className={classnames('form-container', 'p-3', 'mb-3', {
+        'border-red': Object.keys(error).length !== 0,
       })}
     >
       <label htmlFor="formFile" className="form-label">

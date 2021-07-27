@@ -14,9 +14,11 @@
   padding: 0 10vw;
 }
 .avatar-img {
-  width: 100px;
-  height: 100px;
+  /* width: 120px;
+  height: 120px; */
   object-fit: cover;
-  border: 4px solid #69aaff;
-  border-radius: 50%;
+  border: 5px solid #df3d4d;
+}
+.city {
+  background-color: #eba02f !important;
 }
